@@ -19,19 +19,21 @@ This repository holds the **website** for Annotate Kit — the pages, the copy a
 screenshots. It is public so the site can be served from GitHub Pages.
 
 **The product itself is not here.** Annotate Kit is a commercial, source-available
-product: the source lives in a private repository and is available under licence.
+product: the source lives in a private repository. You buy it once — no subscription, no
+seat counting — and the version you bought is yours for good. Updates are paid separately,
+and only if you want them.
 
 | | |
 | --- | --- |
-| **Use licence** | Install and configure it — options, transports, kinds, features, locales — on any number of hosts. You do not modify the source. |
-| **Adapt licence** | Modify it, fork it privately, re-theme it, wire it to your own agents and pipelines. Your changes stay yours. |
+| **Use it** | Install and configure it — options, transports, kinds, features, locales — on any number of hosts. You do not modify the source. |
+| **Adapt it** | Modify it, fork it privately, re-theme it, wire it to your own agents and pipelines. Your changes stay yours. |
 
-Adapting is only worth buying if upgrades stay cheap, so the package publishes a
+Adapting only pays off if updates stay cheap, so the package publishes a
 versioned **contract**: the API, the DOM attributes and the extension points that will
 not break inside a major version. `npx annotate-kit upgrade` reports what moved before
 anything breaks.
 
-**Get a licence:** [alex.cormeraie@gmail.com](mailto:alex.cormeraie@gmail.com?subject=Annotate%20Kit%20—%20licence)
+**Buy it:** [alex.connectedmate@gmail.com](mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit%20—%20licence)
 
 ## About `annotate-kit.js`
 

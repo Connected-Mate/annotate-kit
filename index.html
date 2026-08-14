@@ -223,7 +223,32 @@
   .sim-note { margin-top: 16px; font-size: 15.5px; color: var(--ink); font-weight: 600; }
   .sim-fine { padding: 0 22px 22px; font-size: 13.5px; color: var(--ink-3); }
 
-  /* ── Licence call to action ──────────────────────────────────────────── */
+
+  /* ── Which agent ─────────────────────────────────────────────────────── */
+  .agents { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 22px; }
+  .agent {
+    border: 1px solid var(--line); background: var(--card); border-radius: 999px;
+    padding: 9px 15px; font-size: 14.5px; color: var(--ink-2);
+  }
+
+  /* ── The honest block ────────────────────────────────────────────────── */
+  /* The objection everyone has, answered before they have to say it out loud.
+     Hiding from "we could build this ourselves" makes it louder; meeting it is
+     what makes the price defensible. */
+  .honest {
+    margin-top: 26px; padding: 26px 28px; border-radius: var(--radius);
+    border: 1px solid var(--line); background: var(--card);
+  }
+  .honest h3 { font-size: 21px; }
+  .honest p { color: var(--ink-2); margin-top: 12px; }
+  .honest ul { margin-top: 14px; padding-left: 0; list-style: none; display: grid; gap: 10px; }
+  .honest li { position: relative; padding-left: 26px; color: var(--ink-2); font-size: 16px; }
+  .honest li::before {
+    content: ''; position: absolute; left: 0; top: 8px; width: 12px; height: 12px;
+    border-radius: 4px; border: 2.5px solid var(--blue); background: #fff;
+  }
+
+  /* ── Purchase call to action ──────────────────────────────────────────── */
   .licence-cta {
     margin-top: 30px; padding: 26px 28px; border-radius: var(--radius);
     border: 1px solid var(--line); background: var(--card);
@@ -285,11 +310,12 @@
     <nav>
       <a href="#how">How it works</a>
       <a href="#features">Features</a>
-      <a href="#cost">Cost</a>
+      <a href="#cost">Why it costs less</a>
+      <a href="#buy">Price</a>
       <a href="#output">What the agent gets</a>
       <a href="#install">Install</a>
       <a href="try.html">Try it</a>
-      <a class="btn" href="mailto:alex.cormeraie@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Get a licence</a>
+      <a class="btn" href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Buy it</a>
     </nav>
   </div>
 </header>
@@ -299,9 +325,10 @@
     <span class="pill">Annotate Kit — for the web</span>
     <h1>Point at the pixel.<br /><em>Ship the change.</em></h1>
     <p class="lead">
-      Annotate any page, restyle it live, wireframe a component — and hand your coding
-      agent one message it can act on. No screenshots in Slack, no "the blue button
-      under the second card, no, the other one".
+      Annotate any page, restyle it live, wireframe a component — and get one precise
+      prompt to paste into <strong>whatever AI you already code with</strong>: Claude Code,
+      Codex, Cursor, OpenCode. No screenshots in Slack, no "the blue button under the
+      second card, no, the other one".
     </p>
     <div class="cta">
       <a class="btn btn--blue" href="try.html">Try it on a live page →</a>
@@ -313,6 +340,33 @@
     </figure>
   </div>
 </div>
+
+
+<section id="agents" style="padding-top:46px; padding-bottom:46px">
+  <div class="wrap">
+    <p class="eyebrow">Whatever you already use</p>
+    <h2>It does not replace your AI. It writes its prompt.</h2>
+    <p class="body">
+      Annotate Kit has no model, no API key and no opinion about which agent you should
+      use. What comes out is text — one precise, structured prompt — so it works the same
+      whether you paste it, pipe it over MCP, or send it to a webhook.
+    </p>
+    <div class="agents">
+      <span class="agent">Claude Code</span>
+      <span class="agent">Codex</span>
+      <span class="agent">Cursor</span>
+      <span class="agent">OpenCode</span>
+      <span class="agent">Copilot</span>
+      <span class="agent">Windsurf</span>
+      <span class="agent">Your own agent</span>
+    </div>
+    <p class="body" style="margin-top:18px">
+      The gain is upstream of the model: a prompt that already carries the element, the
+      component, the file and the line does not send your agent hunting through the repo —
+      which is where the tokens and the iterations go.
+    </p>
+  </div>
+</section>
 
 <section id="why">
   <div class="wrap">
@@ -640,61 +694,87 @@ kit.<span class="b">mount</span>();
       with no bundler at all.
     </p>
     <div class="cta" style="margin-top:26px; display:flex; gap:12px; flex-wrap:wrap">
-      <a class="btn btn--blue" href="mailto:alex.cormeraie@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Ask for a licence</a>
+      <a class="btn btn--blue" href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Get in touch</a>
       <a class="btn btn--ghost" href="https://github.com/Connected-Mate/AnnotateKit">Building for iOS? Use AnnotateKit</a>
     </div>
   </div>
 </section>
 
-<section id="licence">
+<section id="buy">
   <div class="wrap">
-    <p class="eyebrow">Licence</p>
-    <h2>Source-available, commercially licensed.</h2>
+    <p class="eyebrow">What it costs</p>
+    <h2>Bought once. Yours for good.</h2>
     <p class="body">
-      You can read the source and evaluate it for 30 days. Beyond that, two licences —
-      and the difference between them is the only thing you have to decide.
+      No subscription, no seat counting, no meter running while you think. You buy Annotate
+      Kit once and the version you bought is yours for life, on as many applications as you
+      like. Updates are the only thing paid again — and only if you want them.
     </p>
+
     <div class="split">
       <div class="panel">
-        <h4 style="color:var(--blue)">Use</h4>
-        <p><strong>Install it and configure it.</strong> Options, transports, kinds,
-        features, locales — everything documented, on any number of hosts. You do not
-        modify the source.</p>
+        <h4 style="color:var(--blue)">Use it</h4>
+        <p><strong>Install and configure.</strong> Transports, kinds, features, locales,
+        your own taxonomy, your own chrome. Everything documented, on any number of
+        applications.</p>
       </div>
       <div class="panel">
-        <h4 style="color:var(--blue)">Adapt</h4>
-        <p><strong>Bend it into your stack.</strong> Modify the source, fork it privately,
-        re-theme it, wire it to your own agents and pipelines. Your changes stay yours.</p>
+        <h4 style="color:var(--blue)">Adapt it</h4>
+        <p><strong>Change it so it fits your stack.</strong> Modify the source, keep it
+        private, re-theme it, wire it to your own agents and pipelines. What you build on
+        top stays yours.</p>
       </div>
     </div>
-    <p class="body" style="margin-top:26px">
-      Adapting is only worth buying if the next release does not undo the work, so the
-      package publishes a versioned <strong>contract</strong>: the API, the DOM attributes
-      and the extension points we promise not to break inside a major version.
+
+    <div class="honest">
+      <h3>Could you build this yourself?</h3>
+      <p>
+        Yes. It is not magic — a browser overlay, a CSS inspector, a prompt builder. What
+        you would be buying is the year that came before it.
+      </p>
+      <ul>
+        <li>Built with people who vibe-code inside real companies, and designers who came
+        from brands where the details get argued over.</li>
+        <li>Close to a billion tokens spent in R&amp;D getting the output right — most of it
+        on discovering what an agent actually needs to be told, and what sends it
+        searching instead.</li>
+        <li>The awkward parts are already done: shadow DOM and event ordering, reading a
+        project's own palette, interaction states, screen widths, and batching the result
+        into work an agent can run in parallel.</li>
+      </ul>
+      <p>
+        Renting software is dead and we are not going to pretend otherwise. What you pay
+        for is time and taste, once.
+      </p>
+    </div>
+
+    <p class="body" style="margin-top:30px">
+      Adapting only pays off if the next release does not undo your work, so the package
+      publishes a versioned <strong>contract</strong>: the API, the DOM attributes and the
+      extension points that will not break inside a major version.
     </p>
 <pre><span class="c"># set it up — writes your config and a brief for your own agent</span>
 npx annotate-kit init
 
-<span class="c"># later, after any upgrade — says what moved, before it breaks</span>
+<span class="c"># when you take an update — says what moved, before it breaks</span>
 npx annotate-kit upgrade
 </pre>
     <p class="body">
-      <code>init</code> reads your codebase, asks what it cannot detect — framework,
-      design system, where feedback should go, where your engineering rules live — and
-      writes <code>annotate-kit.config.js</code> plus <code>ANNOTATE-KIT.md</code>, a brief
-      your own coding agent uses to finish the integration in your idiom. All your choices
-      live in that one file, so an upgrade is a version bump instead of a merge.
+      <code>init</code> reads your codebase, asks what it cannot detect — framework, design
+      system, where feedback should go, where your engineering rules live — and writes
+      <code>annotate-kit.config.js</code> plus <code>ANNOTATE-KIT.md</code>, a brief your own
+      coding agent uses to finish the integration in your idiom. Every choice lives in that
+      one file, so taking an update is a version bump instead of a merge.
     </p>
 
     <div class="licence-cta">
       <div>
-        <h3>Get a licence</h3>
-        <p>Tell us your stack and how many people will use it. We answer with a tier, a
-        price and a key — no form, no demo call unless you want one.</p>
+        <h3>Buy it</h3>
+        <p>Tell us your stack and how many people will use it. We answer with a price and a
+        build — no form, no demo call unless you want one.</p>
       </div>
       <a class="btn btn--blue btn--big"
-         href="mailto:alex.cormeraie@gmail.com?subject=Annotate%20Kit%20—%20licence&amp;body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">
-        Contact us
+         href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit&amp;body=Hello%2C%0A%0AWe%20would%20like%20to%20buy%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20it%20or%20adapt%20it%3A%20%0A%0AThank%20you.">
+        Get in touch
       </a>
     </div>
   </div>
@@ -711,8 +791,8 @@ npx annotate-kit upgrade
       <span>The web sibling of <a href="https://github.com/Connected-Mate/AnnotateKit">AnnotateKit for iOS</a>: same workflow, same design language, same idea.</span>
     </div>
     <div class="row">
-      <a href="mailto:alex.cormeraie@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Licence</a>
-      <a href="mailto:alex.cormeraie@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Contact</a>
+      <a href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Buy</a>
+      <a href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Contact</a>
       <span>© 2026 Connected Mate</span>
     </div>
   </div>
