@@ -1,0 +1,814 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Annotate Kit — point at the pixel, ship the change</title>
+<meta name="description" content="Annotate any web page, restyle it live, wireframe a component — and hand your coding agent one message it can act on." />
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml" />
+<meta property="og:title" content="Annotate Kit — point at the pixel, ship the change" />
+<meta property="og:description" content="Annotate any web page, restyle it live, wireframe a component — and hand your coding agent one message it can act on." />
+<meta property="og:image" content="assets/social-preview.png" />
+<meta name="twitter:card" content="summary_large_image" />
+<style>
+  /*
+    One file, no build, no dependency: this page is served straight off GitHub
+    Pages, and a landing page for a tool about shipping should not need a
+    toolchain of its own.
+
+    The design is AnnotateKit's, the iOS sibling: selection blue on paper, a
+    pastel corner wash over a dotted grid, Apple-native type. Every screenshot
+    is the real product on the demo app — nothing here is a mockup.
+  */
+  :root {
+    --blue: #0A84FF;
+    --blue-deep: #0066DD;
+    --red: #FF3B30;
+    --amber: #FFB300;
+    --green: #34C759;
+    --ink: #0B0B0C;
+    --ink-2: #3C3F45;
+    --ink-3: #6B6F77;
+    --paper: #FBFAF9;
+    --card: #FFFFFF;
+    --line: #E7E7EC;
+    --code-bg: #0E1014;
+    --radius: 20px;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--paper); color: var(--ink);
+    font-family: -apple-system, "SF Pro Text", system-ui, "Segoe UI", Roboto, sans-serif;
+    font-size: 17px; line-height: 1.55; letter-spacing: -0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.06; font-weight: 700; }
+
+  /* ── Top bar ─────────────────────────────────────────────────────────── */
+  header {
+    position: sticky; top: 0; z-index: 20;
+    background: rgba(251, 250, 249, 0.82); backdrop-filter: saturate(180%) blur(16px);
+    border-bottom: 1px solid var(--line);
+  }
+  header .wrap { display: flex; align-items: center; gap: 10px; height: 62px; }
+  /* The wordmark PNG carries its own generous margins, which shrink the name to
+     nothing in a 62px bar — the bar sets the lockup itself instead. */
+  header .lockup { display: flex; align-items: center; gap: 9px; font-weight: 700; font-size: 18px; letter-spacing: -0.03em; }
+  header .lockup img { width: 26px; height: 26px; }
+  header .lockup em { font-style: normal; color: var(--blue); }
+  header nav { margin-left: auto; display: flex; align-items: center; gap: 22px; font-size: 15px; color: var(--ink-2); }
+  header nav a { text-decoration: none; }
+  header nav a:hover { color: var(--ink); }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--ink); color: #fff; text-decoration: none;
+    padding: 10px 16px; border-radius: 999px; font-size: 15px; font-weight: 600;
+    transition: transform 160ms var(--ease), opacity 160ms var(--ease);
+  }
+  .btn:hover { transform: translateY(-1px); opacity: 0.92; }
+  .btn--blue { background: var(--blue); }
+  .btn--ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+
+  /* ── Hero ────────────────────────────────────────────────────────────── */
+  .hero { position: relative; overflow: hidden; padding: 84px 0 64px; }
+  .hero::before {
+    content: ''; position: absolute; inset: 0; z-index: -2;
+    background-image:
+      radial-gradient(circle at 0% 0%, rgba(255, 214, 102, 0.42), transparent 40%),
+      radial-gradient(circle at 100% 0%, rgba(255, 138, 168, 0.38), transparent 40%),
+      radial-gradient(circle at 0% 100%, rgba(120, 220, 160, 0.32), transparent 44%),
+      radial-gradient(circle at 100% 100%, rgba(120, 175, 255, 0.42), transparent 44%);
+  }
+  .hero::after {
+    content: ''; position: absolute; inset: 0; z-index: -1;
+    background-image: radial-gradient(rgba(11, 11, 12, 0.13) 1px, transparent 1px);
+    background-size: 16px 16px; opacity: 0.55;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--ink); color: #fff; border-radius: 999px;
+    padding: 8px 15px; font-size: 14px; font-weight: 600; margin-bottom: 22px;
+  }
+  .hero h1 { font-size: clamp(40px, 6vw, 68px); max-width: 15ch; }
+  .hero h1 em { font-style: normal; color: var(--blue); }
+  .hero p.lead { font-size: 20px; color: var(--ink-2); max-width: 52ch; margin-top: 20px; }
+  .hero .cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .hero figure { margin-top: 52px; }
+
+  /* ── Shots ───────────────────────────────────────────────────────────── */
+  figure { margin: 0; }
+  .shot {
+    display: block; width: 100%; border-radius: var(--radius);
+    border: 1px solid var(--line); background: var(--card);
+    box-shadow: 0 24px 60px rgba(11, 11, 12, 0.14), 0 2px 6px rgba(11, 11, 12, 0.05);
+  }
+  figcaption { margin-top: 12px; font-size: 14.5px; color: var(--ink-3); }
+
+  /* ── Sections ────────────────────────────────────────────────────────── */
+  section { padding: 76px 0; border-top: 1px solid var(--line); }
+  section:first-of-type { border-top: 0; }
+  .eyebrow {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 12px;
+  }
+  section h2 { font-size: clamp(28px, 3.6vw, 40px); max-width: 20ch; }
+  section p.body { font-size: 18px; color: var(--ink-2); max-width: 62ch; margin-top: 16px; }
+
+  .feature { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
+  .feature + .feature { margin-top: 72px; padding-top: 72px; border-top: 1px dashed var(--line); }
+  .feature.flip .text { order: 2; }
+  .feature h3 { font-size: 27px; }
+  .feature p { color: var(--ink-2); margin-top: 12px; }
+  .feature ul { margin-top: 16px; padding-left: 0; list-style: none; display: grid; gap: 9px; }
+  .feature li { position: relative; padding-left: 26px; color: var(--ink-2); font-size: 16px; }
+  .feature li::before {
+    content: ''; position: absolute; left: 0; top: 8px;
+    width: 12px; height: 12px; border-radius: 4px;
+    border: 2.5px solid var(--blue); background: #fff;
+  }
+
+  /* ── Problem / answer ────────────────────────────────────────────────── */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 32px; }
+  .panel { border-radius: var(--radius); padding: 26px 28px; border: 1px solid var(--line); background: var(--card); }
+  .panel.bad { background: #FFF6F5; border-color: #FFD9D4; }
+  .panel h4 { font-size: 15px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); font-weight: 700; }
+  .panel.bad h4 { color: var(--red); }
+  .panel.good h4 { color: var(--green); }
+  .panel p { margin-top: 12px; color: var(--ink-2); }
+  .quote { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 14.5px; line-height: 1.6; }
+
+  /* ── Code ────────────────────────────────────────────────────────────── */
+  pre {
+    background: var(--code-bg); color: #E6E8EE; border-radius: 16px;
+    padding: 22px 24px; overflow-x: auto; margin-top: 22px;
+    font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: 14px; line-height: 1.65;
+  }
+  pre .c { color: #7C8497; }
+  pre .k { color: #FF9E64; }
+  pre .s { color: #7EE787; }
+  pre .b { color: #79C0FF; }
+
+  /* ── Steps ───────────────────────────────────────────────────────────── */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 34px; }
+  .step { border-radius: var(--radius); border: 1px solid var(--line); background: var(--card); padding: 24px; }
+  .num {
+    width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    background: var(--blue); color: #fff; font-weight: 700; font-size: 16px; margin-bottom: 14px;
+    box-shadow: 0 6px 16px rgba(10, 132, 255, 0.28);
+  }
+  .step.two .num { background: var(--amber); box-shadow: 0 6px 16px rgba(255, 179, 0, 0.28); }
+  .step.three .num { background: var(--green); box-shadow: 0 6px 16px rgba(52, 199, 89, 0.26); }
+  .step h3 { font-size: 19px; }
+  .step p { margin-top: 8px; color: var(--ink-2); font-size: 15.5px; }
+
+  /* ── Footer ──────────────────────────────────────────────────────────── */
+  footer { border-top: 1px solid var(--line); padding: 46px 0 64px; color: var(--ink-3); font-size: 15px; }
+  footer a { color: var(--ink-2); }
+  footer .row { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; }
+  footer .row + .row { margin-top: 14px; }
+
+
+  /* ── Who it is for ───────────────────────────────────────────────────── */
+  .audience { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 30px; }
+  .who-card { border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); padding: 22px; }
+  .who-card h3 { font-size: 19px; }
+  .who-card p { margin-top: 9px; color: var(--ink-2); font-size: 15.5px; }
+
+  /* ── The simulator ───────────────────────────────────────────────────── */
+  .sim { margin-top: 30px; border: 1px solid var(--line); border-radius: 22px; background: var(--card); overflow: hidden; }
+  .sim-head {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    padding: 20px 22px; border-bottom: 1px solid var(--line); background: #F7F7F8;
+  }
+  .sim-head b { display: block; font-size: 16px; }
+  .sim-head span { font-size: 14.5px; color: var(--ink-3); }
+  .sim-control { margin-left: auto; display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--ink-2); }
+  .sim-control input { accent-color: var(--blue); width: 130px; }
+  .sim-control b { min-width: 1.5ch; text-align: right; }
+
+  .sim-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .sim-col { padding: 22px; }
+  .sim-col--bad { border-right: 1px solid var(--line); }
+  .sim-col h4 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); }
+  .sim-col--bad h4 { color: var(--red); }
+  .sim-col--good h4 { color: var(--green); }
+  .sim-steps { margin: 14px 0 0; padding-left: 0; list-style: none; display: grid; gap: 8px; counter-reset: step; }
+  .sim-steps li {
+    display: flex; gap: 10px; align-items: baseline; font-size: 14.5px; color: var(--ink-2);
+    animation: stepIn 260ms var(--ease) backwards;
+  }
+  .sim-steps li b { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--ink-3); font-weight: 500; font-size: 13px; white-space: nowrap; }
+  .sim-steps li::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%; flex: 0 0 auto;
+    background: var(--red); margin-top: 6px;
+  }
+  .sim-col--good .sim-steps li::before { background: var(--green); }
+  @keyframes stepIn { from { opacity: 0; transform: translateY(4px); } }
+  .sim-total { display: flex; gap: 22px; margin-top: 18px; padding-top: 16px; border-top: 1px dashed var(--line); flex-wrap: wrap; }
+  .sim-total span { display: block; font-size: 12.5px; color: var(--ink-3); }
+  .sim-total b { font-size: 20px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+
+  .sim-bar { padding: 22px; border-top: 1px solid var(--line); background: #FAFAFB; }
+  .sim-bar-row { display: flex; align-items: center; gap: 14px; font-size: 14px; color: var(--ink-2); }
+  .sim-bar-row + .sim-bar-row { margin-top: 10px; }
+  .sim-bar-row span { width: 150px; flex: 0 0 auto; }
+  .sim-bar-row b { width: 92px; text-align: right; font-variant-numeric: tabular-nums; }
+  .track { flex: 1; height: 12px; border-radius: 999px; background: #ECEDF1; overflow: hidden; }
+  .track i { display: block; height: 100%; border-radius: 999px; background: var(--red); width: 0; transition: width 420ms var(--ease); }
+  .track i.good { background: var(--green); }
+  .sim-note { margin-top: 16px; font-size: 15.5px; color: var(--ink); font-weight: 600; }
+  .sim-fine { padding: 0 22px 22px; font-size: 13.5px; color: var(--ink-3); }
+
+  /* ── Licence call to action ──────────────────────────────────────────── */
+  .licence-cta {
+    margin-top: 30px; padding: 26px 28px; border-radius: var(--radius);
+    border: 1px solid var(--line); background: var(--card);
+    display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  }
+  .licence-cta h3 { font-size: 21px; }
+  .licence-cta p { color: var(--ink-2); margin-top: 8px; max-width: 52ch; }
+  .btn--big { padding: 14px 24px; font-size: 16px; margin-left: auto; }
+
+  /* ── Phones ──────────────────────────────────────────────────────────── */
+  /*
+    Most people who are sent this link open it on a phone, and the thing they
+    need to understand there is the licence — what it costs them and how to ask
+    for it. So the page keeps every section on a phone, drops to one column,
+    and the licence block becomes the widest, most obvious thing on the screen.
+  */
+  @media (max-width: 900px) {
+    .audience, .sim-grid { grid-template-columns: 1fr; }
+    .sim-col--bad { border-right: 0; border-bottom: 1px solid var(--line); }
+    .sim-control { margin-left: 0; width: 100%; }
+    .sim-control input { flex: 1; width: auto; }
+  }
+  @media (max-width: 620px) {
+    body { font-size: 16px; }
+    .wrap { padding: 0 18px; }
+    section { padding: 52px 0; }
+    .hero { padding: 54px 0 44px; }
+    .hero h1 { font-size: 36px; }
+    .hero p.lead { font-size: 17.5px; }
+    section h2 { font-size: 26px; }
+    section p.body { font-size: 16.5px; }
+    .cta .btn, .hero .cta .btn { flex: 1; justify-content: center; }
+    .btn--big { margin-left: 0; width: 100%; justify-content: center; }
+    .licence-cta { padding: 22px; }
+    .sim-bar-row { flex-wrap: wrap; }
+    .sim-bar-row span { width: auto; flex: 1; }
+    .sim-bar-row b { width: auto; }
+    .track { order: 3; flex: 1 0 100%; }
+    pre { font-size: 12.5px; padding: 16px; border-radius: 12px; }
+    figcaption { font-size: 13.5px; }
+    footer .row { gap: 10px; }
+  }
+
+  @media (max-width: 860px) {
+    .feature, .split, .steps { grid-template-columns: 1fr; }
+    .feature.flip .text { order: 0; }
+    header nav a:not(.btn) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="lockup" href="#" style="text-decoration:none">
+      <img src="assets/mark.svg" alt="" />
+      <span>Annotate <em>Kit</em></span>
+    </a>
+    <nav>
+      <a href="#how">How it works</a>
+      <a href="#features">Features</a>
+      <a href="#cost">Cost</a>
+      <a href="#output">What the agent gets</a>
+      <a href="#install">Install</a>
+      <a href="try.html">Try it</a>
+      <a class="btn" href="mailto:alex.cormeraie@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Get a licence</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <span class="pill">Annotate Kit — for the web</span>
+    <h1>Point at the pixel.<br /><em>Ship the change.</em></h1>
+    <p class="lead">
+      Annotate any page, restyle it live, wireframe a component — and hand your coding
+      agent one message it can act on. No screenshots in Slack, no "the blue button
+      under the second card, no, the other one".
+    </p>
+    <div class="cta">
+      <a class="btn btn--blue" href="try.html">Try it on a live page →</a>
+      <a class="btn btn--ghost" href="#install">Install it</a>
+    </div>
+    <figure>
+      <img class="shot" src="assets/annotate.png" alt="An annotation card open on a live page, with Improvement / Fix / Design chips and a note being written." />
+      <figcaption>The real thing, on a real page. Click an element, pick a kind, write the note.</figcaption>
+    </figure>
+  </div>
+</div>
+
+<section id="why">
+  <div class="wrap">
+    <p class="eyebrow">Why</p>
+    <h2>Your agent cannot see what you are pointing at.</h2>
+    <p class="body">
+      Coding agents are good at changing code and blind to the screen. Every design
+      review turns into an exercise in describing pixels in prose — and the agent edits
+      the wrong component, or asks three questions before touching anything.
+    </p>
+    <div class="split">
+      <div class="panel bad">
+        <h4>What you send today</h4>
+        <p class="quote">
+          "hey can you make the card on the pricing page a bit lighter, and the heading
+          is too big on mobile — not that card, the one with the chart"
+        </p>
+        <p>Screenshot attached. Three follow-up questions. Two wrong files touched.</p>
+      </div>
+      <div class="panel good">
+        <h4>What Annotate Kit sends</h4>
+        <p class="quote">
+          <span style="color:#0A84FF">div.hero-card</span> · <span style="color:#0A84FF">&lt;Landing&gt;</span><br />
+          pages.tsx:44 · written at Phone · 390px<br />
+          background-color: #FFFFFF → var(--paper)
+        </p>
+        <p>The element, its component, the source line, the screen width, the exact value.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h2>Three steps, one message.</h2>
+    <div class="steps">
+      <div class="step one">
+        <div class="num">1</div>
+        <h3>Point</h3>
+        <p>Click any element on your running app. The kit captures its selector, DOM path, React component, source line, computed styles and the text around it.</p>
+      </div>
+      <div class="step two">
+        <div class="num">2</div>
+        <h3>Change</h3>
+        <p>Write a note, or restyle the element live in the inspector, or grey a component down and move its blocks. All three land in the same batch.</p>
+      </div>
+      <div class="step three">
+        <div class="num">3</div>
+        <h3>Hand over</h3>
+        <p>One message, sorted into lots — design, fixes, features — with instructions to run each lot in parallel and which items must go to the same worker.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <p class="eyebrow">Features</p>
+    <h2>Everything a design review needs, on the page itself.</h2>
+
+    <div class="feature" style="margin-top:44px">
+      <div class="text">
+        <h3>Annotate mode</h3>
+        <p>
+          The classic loop, sharpened: click, choose <strong>Improvement</strong>,
+          <strong>Fix</strong> or <strong>Design</strong>, write what should change. A
+          numbered marker stays on the page so you can see what you have already said.
+        </p>
+        <ul>
+          <li>Element identity an agent can grep: selector, DOM path, component, source line</li>
+          <li>Kind chips, so the batch sorts itself</li>
+          <li>Screenshot of the element, taken by the browser — no host setup</li>
+          <li>The batch, laid open: click the count to review, reveal or drop any item</li>
+        </ul>
+      </div>
+      <figure>
+        <img class="shot" src="assets/annotate.png" alt="Annotation card with kind chips and a note" />
+      </figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="text">
+        <h3>Design mode</h3>
+        <p>
+          A Figma-style inspector docked on the right. Restyle the real element — colour,
+          type, spacing, radius, shadow — and watch the page change under you. Every edit
+          is recorded as a before/after the agent can apply to the source.
+        </p>
+        <ul>
+          <li><strong>States:</strong> design the hover, focus, active and disabled versions, not just the one on screen</li>
+          <li><strong>Your palette:</strong> the project's own colours and typefaces, read off the page, offered first</li>
+          <li><strong>Guardrails:</strong> off-rhythm spacing and unreadable contrast are flagged, never blocked</li>
+          <li>Edits reference your design tokens (<code>var(--brand-500)</code>), not raw hex</li>
+        </ul>
+      </div>
+      <figure>
+        <img class="shot" src="assets/design.png" alt="The design inspector open on a heading, showing type, colour and a contrast readout" />
+        <figcaption>The contrast of the chosen colour, checked against what is actually behind the text.</figcaption>
+      </figure>
+    </div>
+
+    <div class="feature">
+      <div class="text">
+        <h3>Wireframe mode</h3>
+        <p>
+          Pick a component and it drops to grey and white blocks — no text, no images, no
+          opinions. Drag the blocks, resize them, remove one, add another. You are asking
+          for a new arrangement, not describing one.
+        </p>
+        <ul>
+          <li>Only what a person can see becomes a block: invisible wrapper divs are walked through, never drawn</li>
+          <li>Drag, resize, drop and name each block</li>
+          <li>The result ships as an annotation, with the before and after geometry</li>
+        </ul>
+      </div>
+      <figure>
+        <img class="shot" src="assets/wireframe.png" alt="Three cards reduced to grey wireframe blocks, one of them dragged out of place" />
+      </figure>
+    </div>
+
+    <div class="feature flip">
+      <div class="text">
+        <h3>Every screen size</h3>
+        <p>
+          Desktop, tablet, phone — from the toolbar, without leaving the page or losing
+          the session. Every note records the width it was written at, because
+          "make this smaller" means opposite things at 1440 and at 390.
+        </p>
+        <ul>
+          <li>Written at <code>Phone · 390px</code> travels with each item</li>
+          <li>Annotation pauses while you choose a size — the modes never fight</li>
+        </ul>
+      </div>
+      <figure>
+        <img class="shot" src="assets/sizes.png" alt="The page narrowed to phone width with the size switcher open" />
+      </figure>
+    </div>
+
+    <div class="feature">
+      <div class="text">
+        <h3>Your project's own palette</h3>
+        <p>
+          The colour picker opens on the colours the page already uses — read from its CSS
+          variables, or from what it actually paints when there are none. Pick one and the
+          agent is told it is <code>--ink</code>, not <code>#10201F</code>.
+        </p>
+        <ul>
+          <li>Works on the first connection to any codebase: Tailwind, CSS modules, plain CSS, styled-components</li>
+          <li>Off-palette colours are named as such, and still allowed</li>
+          <li>An eyedropper, for the colours that are on screen but not in the system</li>
+        </ul>
+      </div>
+      <figure>
+        <img class="shot" src="assets/palette.png" alt="The colour picker showing the project's own palette under the saturation square" />
+      </figure>
+    </div>
+  </div>
+</section>
+
+
+<section id="who">
+  <div class="wrap">
+    <p class="eyebrow">Who it is for</p>
+    <h2>So designers can finally ship the change themselves.</h2>
+    <p class="body">
+      Vibe-coding works right up to the moment you have to describe a screen in words. A
+      designer knows exactly what is wrong and cannot say it in a way an agent can act on;
+      a developer can say it and did not notice it. Annotate Kit removes the translation
+      step: you point at the thing, and the agent receives the thing.
+    </p>
+    <div class="audience">
+      <div class="who-card">
+        <h3>Designers</h3>
+        <p>Change it live in the inspector, in your own palette and your own type scale.
+        What you send is not an opinion, it is a diff waiting to be applied.</p>
+      </div>
+      <div class="who-card">
+        <h3>Everyone who is not technical</h3>
+        <p>Product, marketing, support, a client on a call. Click, write a sentence, done —
+        no selector, no screenshot, no "second card from the left".</p>
+      </div>
+      <div class="who-card">
+        <h3>Developers</h3>
+        <p>Feedback arrives with the component, the file and the line already attached.
+        No triage, no going back for the missing half of the question.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cost">
+  <div class="wrap">
+    <p class="eyebrow">Why it costs less</p>
+    <h2>A precise prompt is a cheap prompt.</h2>
+    <p class="body">
+      An agent that does not know which element you mean has to go and find out: grep the
+      repo, open candidate files, read components, guess, ask, try, be told it is the wrong
+      one, try again. Every one of those steps is tokens in and tokens out — and the search
+      is the expensive part, not the fix. Hand it the selector, the component, the source
+      line and the exact before/after value, and there is nothing left to search for.
+    </p>
+
+    <div class="sim" id="sim">
+      <div class="sim-head">
+        <div>
+          <b>The same request, two ways</b>
+          <span>“Make the pricing card lighter, and the heading is too big on mobile.”</span>
+        </div>
+        <label class="sim-control">
+          <span>Requests in the batch</span>
+          <input type="range" id="sim-count" min="1" max="12" value="4" />
+          <b id="sim-count-out">4</b>
+        </label>
+      </div>
+
+      <div class="sim-grid">
+        <div class="sim-col sim-col--bad">
+          <h4>Described in words</h4>
+          <ol class="sim-steps" id="steps-without"></ol>
+          <div class="sim-total">
+            <div><span>Tokens</span><b id="tok-without">—</b></div>
+            <div><span>Round trips</span><b id="trips-without">—</b></div>
+            <div><span>Right first time</span><b id="hit-without">—</b></div>
+          </div>
+        </div>
+        <div class="sim-col sim-col--good">
+          <h4>Sent with Annotate Kit</h4>
+          <ol class="sim-steps" id="steps-with"></ol>
+          <div class="sim-total">
+            <div><span>Tokens</span><b id="tok-with">—</b></div>
+            <div><span>Round trips</span><b id="trips-with">—</b></div>
+            <div><span>Right first time</span><b id="hit-with">—</b></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sim-bar">
+        <div class="sim-bar-row">
+          <span>Described in words</span>
+          <div class="track"><i id="bar-without"></i></div>
+          <b id="bar-without-label">—</b>
+        </div>
+        <div class="sim-bar-row">
+          <span>With Annotate Kit</span>
+          <div class="track"><i id="bar-with" class="good"></i></div>
+          <b id="bar-with-label">—</b>
+        </div>
+        <p class="sim-note" id="sim-verdict">—</p>
+      </div>
+
+      <p class="sim-fine">
+        An illustration, not a benchmark: the step counts come from what an agent actually
+        has to do to locate an element it was described in prose, and the token figures are
+        rounded orders of magnitude for a mid-sized codebase. Your numbers will differ. The
+        shape will not — searching costs more than fixing.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="output">
+  <div class="wrap">
+    <p class="eyebrow">What the agent gets</p>
+    <h2>One message, already a plan of work.</h2>
+    <p class="body">
+      Not a list of complaints: a briefing. The batch is sorted into lots by kind, each lot
+      split into groups that cannot touch each other, with the instruction to run one
+      sub-agent per group — and the reason why the rest must not be split.
+    </p>
+<pre><span class="c">## Page feedback — /pricing</span>
+
+- <span class="b">**Items**</span>: 5
+- <span class="b">**Annotated at**</span>: Phone · 390px
+
+<span class="c">## How to work through this</span>
+
+3 kinds of work, 3 independent groups in total. Run one sub-agent per group —
+every group below touches a different part of the page.
+
+<span class="c">### Design — 2 items</span>
+- Group 1: items 1, 2 — one worker takes all of them, in this order.
+  These elements contain one another, so splitting them would have two
+  workers changing the same component from two directions.
+
+<span class="c">## Design (2)</span>
+
+<span class="c">### 1. Design — background-color: #FFFFFF → #FBF9F4</span>
+- <span class="b">**Element**</span>: `div.hero-card`
+- <span class="b">**Selector**</span>: `div#root &gt; div.shell &gt; section.hero &gt; div.hero-card`
+- <span class="b">**React component**</span>: `&lt;Landing&gt;` (`src/pages.tsx:44:9`)
+- <span class="b">**Written at**</span>: Phone · 390px
+- <span class="b">**Design edits (1)**</span>:
+  - `div` (`:hover`) · `background-color`: `#FFFFFF` → `#FBF9F4`
+    <span class="s">"newValueToken": "var(--paper)"</span>
+</pre>
+    <p class="body" style="margin-top:22px">
+      The instructions are stated <strong>once</strong> for the whole batch, with the
+      project's token table, so five edits do not repeat forty lines of preamble five
+      times. Copy it to the clipboard, or send it straight to an agent over MCP or a
+      webhook — and when the agent answers back, every marker on the page changes shape:
+      working, done, or refused.
+    </p>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <p class="eyebrow">Install</p>
+    <h2>Two lines, and it is on your page.</h2>
+<pre><span class="c">// npm install annotate-kit</span>
+
+<span class="k">import</span> { createAnnotateKit } <span class="k">from</span> <span class="s">'annotate-kit'</span>;
+
+<span class="k">const</span> kit = <span class="b">createAnnotateKit</span>({
+  <span class="c">// Where the batch goes: clipboard, your own callback,</span>
+  <span class="c">// an HTTP endpoint, or an MCP bridge.</span>
+  transport: <span class="b">clipboardTransport</span>(),
+});
+kit.<span class="b">mount</span>();
+</pre>
+    <p class="body">
+      React, Vue, Svelte or plain HTML — the kit mounts itself onto the page and does not
+      care what rendered it. There is a <code>&lt;script&gt;</code> build too, for pages
+      with no bundler at all.
+    </p>
+    <div class="cta" style="margin-top:26px; display:flex; gap:12px; flex-wrap:wrap">
+      <a class="btn btn--blue" href="mailto:alex.cormeraie@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Ask for a licence</a>
+      <a class="btn btn--ghost" href="https://github.com/Connected-Mate/AnnotateKit">Building for iOS? Use AnnotateKit</a>
+    </div>
+  </div>
+</section>
+
+<section id="licence">
+  <div class="wrap">
+    <p class="eyebrow">Licence</p>
+    <h2>Source-available, commercially licensed.</h2>
+    <p class="body">
+      You can read the source and evaluate it for 30 days. Beyond that, two licences —
+      and the difference between them is the only thing you have to decide.
+    </p>
+    <div class="split">
+      <div class="panel">
+        <h4 style="color:var(--blue)">Use</h4>
+        <p><strong>Install it and configure it.</strong> Options, transports, kinds,
+        features, locales — everything documented, on any number of hosts. You do not
+        modify the source.</p>
+      </div>
+      <div class="panel">
+        <h4 style="color:var(--blue)">Adapt</h4>
+        <p><strong>Bend it into your stack.</strong> Modify the source, fork it privately,
+        re-theme it, wire it to your own agents and pipelines. Your changes stay yours.</p>
+      </div>
+    </div>
+    <p class="body" style="margin-top:26px">
+      Adapting is only worth buying if the next release does not undo the work, so the
+      package publishes a versioned <strong>contract</strong>: the API, the DOM attributes
+      and the extension points we promise not to break inside a major version.
+    </p>
+<pre><span class="c"># set it up — writes your config and a brief for your own agent</span>
+npx annotate-kit init
+
+<span class="c"># later, after any upgrade — says what moved, before it breaks</span>
+npx annotate-kit upgrade
+</pre>
+    <p class="body">
+      <code>init</code> reads your codebase, asks what it cannot detect — framework,
+      design system, where feedback should go, where your engineering rules live — and
+      writes <code>annotate-kit.config.js</code> plus <code>ANNOTATE-KIT.md</code>, a brief
+      your own coding agent uses to finish the integration in your idiom. All your choices
+      live in that one file, so an upgrade is a version bump instead of a merge.
+    </p>
+
+    <div class="licence-cta">
+      <div>
+        <h3>Get a licence</h3>
+        <p>Tell us your stack and how many people will use it. We answer with a tier, a
+        price and a key — no form, no demo call unless you want one.</p>
+      </div>
+      <a class="btn btn--blue btn--big"
+         href="mailto:alex.cormeraie@gmail.com?subject=Annotate%20Kit%20—%20licence&amp;body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">
+        Contact us
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <img src="assets/mark.svg" alt="" width="30" height="30" />
+      <strong>Annotate Kit</strong>
+      <span>— visual feedback, for agents, on the web.</span>
+    </div>
+    <div class="row">
+      <span>The web sibling of <a href="https://github.com/Connected-Mate/AnnotateKit">AnnotateKit for iOS</a>: same workflow, same design language, same idea.</span>
+    </div>
+    <div class="row">
+      <a href="mailto:alex.cormeraie@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Licence</a>
+      <a href="mailto:alex.cormeraie@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Contact</a>
+      <span>© 2026 Connected Mate</span>
+    </div>
+  </div>
+</footer>
+
+
+<script>
+  /*
+    The simulator.
+
+    It is a model, and it says so on the page. What it must not be is invented:
+    every step in the left column is something an agent genuinely does when it
+    is handed a sentence instead of a selector — grep for a phrase, open the
+    files that matched, read the component, ask which one, be corrected, try
+    again. Those steps are the cost, and they are what disappears when the
+    request already carries the element.
+
+    Numbers are rounded orders of magnitude for a mid-sized repository, held in
+    one place so anyone can argue with them.
+  */
+  const MODEL = {
+    without: [
+      { label: 'Read the request', tokens: 120 },
+      { label: 'Search the repo for the wording', tokens: 2600 },
+      { label: 'Open the files that matched', tokens: 7400 },
+      { label: 'Read the components to find the right one', tokens: 5200 },
+      { label: 'Ask which card was meant', tokens: 300 },
+      { label: 'Read the answer, search again', tokens: 3100 },
+      { label: 'Write the change', tokens: 900 },
+      { label: 'Wrong element — do it again', tokens: 9500 },
+    ],
+    with: [
+      { label: 'Read the request (selector, component, file:line)', tokens: 600 },
+      { label: 'Open exactly that file', tokens: 1100 },
+      { label: 'Write the change, with the token already named', tokens: 800 },
+    ],
+    tripsWithout: 4,
+    tripsWith: 1,
+    hitWithout: 0.35,
+    hitWith: 0.9,
+    // Roughly a frontier model's blended rate per million tokens.
+    pricePerMillion: 9,
+  };
+
+  const el = (id) => document.getElementById(id);
+  const fmt = (n) => (n >= 1000 ? `${(n / 1000).toFixed(n >= 10000 ? 0 : 1)}k` : String(Math.round(n)));
+
+  function renderSteps(target, steps, perRequest) {
+    target.replaceChildren();
+    steps.forEach((step, index) => {
+      const li = document.createElement('li');
+      li.style.animationDelay = `${index * 45}ms`;
+      const label = document.createElement('span');
+      label.textContent = step.label;
+      const tokens = document.createElement('b');
+      tokens.textContent = `${fmt(step.tokens * perRequest)} tok`;
+      li.append(label, tokens);
+      target.appendChild(li);
+    });
+  }
+
+  function run(count) {
+    const sum = (steps) => steps.reduce((total, step) => total + step.tokens, 0) * count;
+    const without = sum(MODEL.without);
+    const withKit = sum(MODEL.with);
+
+    renderSteps(el('steps-without'), MODEL.without, count);
+    renderSteps(el('steps-with'), MODEL.with, count);
+
+    el('tok-without').textContent = fmt(without);
+    el('tok-with').textContent = fmt(withKit);
+    el('trips-without').textContent = `${MODEL.tripsWithout * count}`;
+    el('trips-with').textContent = `${MODEL.tripsWith * count}`;
+    el('hit-without').textContent = `${Math.round(MODEL.hitWithout * 100)}%`;
+    el('hit-with').textContent = `${Math.round(MODEL.hitWith * 100)}%`;
+
+    const worst = Math.max(without, withKit);
+    el('bar-without').style.width = `${(without / worst) * 100}%`;
+    el('bar-with').style.width = `${(withKit / worst) * 100}%`;
+    const cost = (tokens) => (tokens / 1e6) * MODEL.pricePerMillion;
+    el('bar-without-label').textContent = `$${cost(without).toFixed(2)}`;
+    el('bar-with-label').textContent = `$${cost(withKit).toFixed(2)}`;
+
+    const saved = Math.round((1 - withKit / without) * 100);
+    el('sim-verdict').textContent =
+      `${saved}% fewer tokens, ${MODEL.tripsWithout * count - MODEL.tripsWith * count} fewer round trips — ` +
+      `and it lands the first time far more often, which is the part that actually costs a day.`;
+  }
+
+  const slider = el('sim-count');
+  slider.addEventListener('input', () => {
+    el('sim-count-out').textContent = slider.value;
+    run(Number(slider.value));
+  });
+  run(Number(slider.value));
+</script>
+
+</body>
+</html>
