@@ -4,47 +4,83 @@
 
 <p align="center">
   <strong>Point at the pixel. Ship the change.</strong><br />
-  Annotate any web page, restyle it live, and hand your coding agent one message it can act on.
+  Annotate a running interface — a web page or a native iOS screen — and hand your AI
+  coding agent one message it can act on.
 </p>
 
 <p align="center">
-  <a href="https://connected-mate.github.io/annotate-kit-site/"><strong>See it →</strong></a>
+  <a href="https://connected-mate.github.io/annotate-kit/"><strong>See it →</strong></a>
   &nbsp;·&nbsp;
-  <a href="https://connected-mate.github.io/annotate-kit-site/try.html"><strong>Try it on a live page →</strong></a>
+  <a href="https://connected-mate.github.io/annotate-kit/try.html"><strong>Try it on a live page →</strong></a>
 </p>
 
 ---
 
-This repository holds the **website** for Annotate Kit — the pages, the copy and the
-screenshots. It is public so the site can be served from GitHub Pages.
+**This repository is the front door.** It holds the website, and the map of every other
+Annotate Kit repository. If you are looking for the code, it is one of the links below.
 
-**The product itself is not here.** Annotate Kit is a commercial, source-available
-product: the source lives in a private repository. You buy it once — no subscription, no
-seat counting — and the version you bought is yours for good. Updates are paid separately,
-and only if you want them.
+## The family
+
+| Repository | What it is | Visibility |
+| --- | --- | --- |
+| **[annotate-kit](https://github.com/Connected-Mate/annotate-kit)** *(you are here)* | The website and this index. Served by GitHub Pages. | Public |
+| **[annotate-kit-web](https://github.com/Connected-Mate/annotate-kit-web)** | The web package. A JS/TS overlay for React, Vue, Svelte or plain HTML: annotate, restyle live in a Figma-style inspector, wireframe a component, send one agent-ready message. | Private |
+| **[annotate-kit-ios](https://github.com/Connected-Mate/annotate-kit-ios)** | The Swift package. A floating annotation toolbar for SwiftUI apps in Debug builds, plus its MCP server and its Claude Code / Codex / Cursor plugin. | Public |
+| **[annotate-kit-ios-demo](https://github.com/Connected-Mate/annotate-kit-ios-demo)** | *Trailhead* — a runnable iOS app that both showcases the kit and trains you to write requests an agent can execute first try. Reference integration. | Public |
+
+## Which one do I want?
+
+**Building a website or a web app** → `annotate-kit-web`.
+
+```bash
+npm install annotate-kit
+```
+
+```ts
+import { createAnnotateKit, clipboardTransport } from 'annotate-kit';
+
+createAnnotateKit({ transport: clipboardTransport() }).mount();
+```
+
+**Building a native iOS app (SwiftUI)** → `annotate-kit-ios`.
+
+```swift
+.package(url: "https://github.com/Connected-Mate/annotate-kit-ios", from: "0.4.0")
+```
+
+```swift
+MainTabView().annotationOverlay()   // inert in Release builds
+```
+
+**Want to see it work before wiring anything** → run
+[`annotate-kit-ios-demo`](https://github.com/Connected-Mate/annotate-kit-ios-demo), or
+[try the web version in your browser](https://connected-mate.github.io/annotate-kit/try.html).
+
+## One idea, two implementations
+
+Both versions share the workflow, the design language and the annotation schema: point at
+an element, say what should change, and the agent receives the element's identity, its
+surroundings, a marked screenshot and a written request — not a screenshot in Slack. The
+implementations are independent, because a DOM node and a SwiftUI view are not pointed at
+the same way.
+
+## Licences
 
 | | |
 | --- | --- |
-| **Use it** | Install and configure it — options, transports, kinds, features, locales — on any number of hosts. You do not modify the source. |
-| **Adapt it** | Modify it, fork it privately, re-theme it, wire it to your own agents and pipelines. Your changes stay yours. |
+| **annotate-kit-web** | Commercial, source-available. Bought once, yours for good — no subscription, no seat counting. Updates are paid separately, and only if you want them. |
+| **annotate-kit-ios** | PolyForm Noncommercial 1.0.0 — free for noncommercial use; a commercial licence is available. Versions up to v0.4.0 remain MIT. |
+| **This site** | Content and assets: all rights reserved. |
 
-Adapting only pays off if updates stay cheap, so the package publishes a
-versioned **contract**: the API, the DOM attributes and the extension points that will
-not break inside a major version. `npx annotate-kit upgrade` reports what moved before
-anything breaks.
+**Buy a licence:** [alex.connectedmate@gmail.com](mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit%20—%20licence)
 
-**Buy it:** [alex.connectedmate@gmail.com](mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit%20—%20licence)
+## About `annotate-kit.js` in this repo
 
-## About `annotate-kit.js`
+The playground loads a **demo build**: minified, no source map, and locked to this site's
+own hosts. It is not the package a licensee installs. Anything a browser runs can be
+downloaded — that is true of every website — so this is a deterrent and a statement of the
+licence position, not a vault.
 
-The playground loads a **demo build**: minified, no source map, and locked to this
-site's own hosts. It is not the package a licensee installs. Anything a browser runs can
-be downloaded — that is true of every website — so this is a deterrent and a statement of
-the licence position, not a vault.
+---
 
-## Building for iOS?
-
-[AnnotateKit for iOS](https://github.com/Connected-Mate/AnnotateKit) is the native
-sibling, and it is open source (MIT).
-
-© 2026 Connected Mate. Site content and assets: all rights reserved.
+© 2026 Connected Mate.
