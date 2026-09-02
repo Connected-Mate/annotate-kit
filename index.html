@@ -342,6 +342,33 @@
     .vers { grid-template-columns: 1fr; }
     .index a { grid-template-columns: 1fr; gap: 4px; }
   }
+
+  /* ── Made for you ────────────────────────────────────────────────────── */
+  #custom { background: var(--ink); color: #fff; border-top: 0; }
+  #custom .eyebrow { color: #6FD08C; }
+  #custom h2 { color: #fff; max-width: 22ch; }
+  #custom p.body { color: rgba(255,255,255,0.72); }
+  #custom .panel { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.12); }
+  #custom .panel h4 { color: #6FD08C; }
+  #custom .panel p { color: rgba(255,255,255,0.72); }
+  #custom .panel strong { color: #fff; }
+  .wa {
+    display: inline-flex; align-items: center; gap: 9px;
+    background: #25D366; color: #08130C; text-decoration: none;
+    padding: 14px 22px; border-radius: 999px; font-size: 16.5px; font-weight: 700;
+    transition: transform 160ms var(--ease), box-shadow 160ms var(--ease);
+    box-shadow: 0 10px 30px rgba(37, 211, 102, 0.32);
+  }
+  .wa:hover { transform: translateY(-1px); box-shadow: 0 16px 40px rgba(37, 211, 102, 0.42); }
+  .wa-line { margin-top: 16px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .wa-handle {
+    font-size: 15.5px; font-weight: 600; color: rgba(255,255,255,0.74);
+    letter-spacing: -0.01em;
+  }
+  .btn svg { margin-right: -1px; }
+  header nav a { white-space: nowrap; }
+  @media (max-width: 1180px) { header nav .nav-wide { display: none; } }
+  @media (max-width: 900px)  { header nav a:not(.btn) { display: none; } }
 </style>
 </head>
 <body>
@@ -355,13 +382,12 @@
     <nav>
       <a href="#versions">Web or iOS</a>
       <a href="#how">How it works</a>
-      <a href="#features">Features</a>
-      <a href="#cost">Why it costs less</a>
+      <a class="nav-wide" href="#features">Features</a>
+      <a class="nav-wide" href="#output">What the agent gets</a>
       <a href="#buy">Price</a>
-      <a href="#output">What the agent gets</a>
-      <a href="#install">Install</a>
+      <a href="#custom">Made for you</a>
       <a href="try.html">Try it</a>
-      <a class="btn" href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Buy it</a>
+      <a class="btn" data-wa="licence" href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true" style="flex:none"><path d="M12.04 2C6.6 2 2.17 6.42 2.17 11.87c0 1.94.55 3.75 1.5 5.29L2 22.5l5.48-1.62a9.9 9.9 0 0 0 4.56 1.12h.01c5.44 0 9.87-4.42 9.87-9.87S17.48 2 12.04 2Zm0 18.03h-.01a8.2 8.2 0 0 1-4.17-1.14l-.3-.18-3.1.92.94-3.02-.2-.31a8.15 8.15 0 0 1-1.25-4.36c0-4.52 3.68-8.2 8.21-8.2a8.2 8.2 0 0 1 8.19 8.21c0 4.53-3.68 8.08-8.31 8.08Zm4.5-6.06c-.25-.13-1.46-.72-1.68-.8-.23-.08-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.19-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.74 2.65 4.2 3.72.59.25 1.05.4 1.4.52.59.18 1.13.16 1.55.1.47-.07 1.46-.6 1.66-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z"/></svg>Buy it</a>
     </nav>
   </div>
 </header>
@@ -829,7 +855,7 @@ kit.<span class="b">mount</span>();
       with no bundler at all.
     </p>
     <div class="cta" style="margin-top:26px; display:flex; gap:12px; flex-wrap:wrap">
-      <a class="btn btn--blue" href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Get in touch</a>
+      <a class="btn btn--blue" data-wa="licence" href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true" style="flex:none"><path d="M12.04 2C6.6 2 2.17 6.42 2.17 11.87c0 1.94.55 3.75 1.5 5.29L2 22.5l5.48-1.62a9.9 9.9 0 0 0 4.56 1.12h.01c5.44 0 9.87-4.42 9.87-9.87S17.48 2 12.04 2Zm0 18.03h-.01a8.2 8.2 0 0 1-4.17-1.14l-.3-.18-3.1.92.94-3.02-.2-.31a8.15 8.15 0 0 1-1.25-4.36c0-4.52 3.68-8.2 8.21-8.2a8.2 8.2 0 0 1 8.19 8.21c0 4.53-3.68 8.08-8.31 8.08Zm4.5-6.06c-.25-.13-1.46-.72-1.68-.8-.23-.08-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.19-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.74 2.65 4.2 3.72.59.25 1.05.4 1.4.52.59.18 1.13.16 1.55.1.47-.07 1.46-.6 1.66-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z"/></svg>Talk to me</a>
       <a class="btn btn--ghost" href="https://github.com/Connected-Mate/annotate-kit-ios">Building for iOS? Use annotate-kit-ios</a>
     </div>
   </div>
@@ -908,9 +934,43 @@ npx annotate-kit upgrade
         build — no form, no demo call unless you want one.</p>
       </div>
       <a class="btn btn--blue btn--big"
-         href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit&amp;body=Hello%2C%0A%0AWe%20would%20like%20to%20buy%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20it%20or%20adapt%20it%3A%20%0A%0AThank%20you.">
-        Get in touch
+         data-wa="buy" href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit">
+        <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true" style="flex:none"><path d="M12.04 2C6.6 2 2.17 6.42 2.17 11.87c0 1.94.55 3.75 1.5 5.29L2 22.5l5.48-1.62a9.9 9.9 0 0 0 4.56 1.12h.01c5.44 0 9.87-4.42 9.87-9.87S17.48 2 12.04 2Zm0 18.03h-.01a8.2 8.2 0 0 1-4.17-1.14l-.3-.18-3.1.92.94-3.02-.2-.31a8.15 8.15 0 0 1-1.25-4.36c0-4.52 3.68-8.2 8.21-8.2a8.2 8.2 0 0 1 8.19 8.21c0 4.53-3.68 8.08-8.31 8.08Zm4.5-6.06c-.25-.13-1.46-.72-1.68-.8-.23-.08-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.19-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.74 2.65 4.2 3.72.59.25 1.05.4 1.4.52.59.18 1.13.16 1.55.1.47-.07 1.46-.6 1.66-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z"/></svg>Talk to me on WhatsApp
       </a>
+    </div>
+  </div>
+</section>
+
+<section id="custom">
+  <div class="wrap">
+    <p class="eyebrow">Made for you</p>
+    <h2>Want this, but built around your company?</h2>
+    <p class="body">
+      Annotate Kit is one answer to one problem. If you have the same problem in a
+      different shape — your design system, your review process, your agents, your
+      internal tools — it can be built for you rather than adapted by you. Same for a
+      project that has nothing to do with annotation: if it is software that has to work
+      on the first day it ships, say what you need and we will talk about it.
+    </p>
+
+    <div class="split">
+      <div class="panel">
+        <h4>Annotate Kit, tailored</h4>
+        <p><strong>Your stack, your taxonomy, your pipeline.</strong> Wired to your own
+        agents, your design tokens, your ticketing — and themed so it looks like it was
+        always part of your product.</p>
+      </div>
+      <div class="panel">
+        <h4>Something else entirely</h4>
+        <p><strong>A different product, same standard.</strong> Web, native iOS or macOS,
+        internal tooling, an agent workflow of your own. Tell me what should exist and
+        we will scope it together.</p>
+      </div>
+    </div>
+
+    <div class="wa-line">
+      <a class="wa" data-wa="custom" href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true" style="flex:none"><path d="M12.04 2C6.6 2 2.17 6.42 2.17 11.87c0 1.94.55 3.75 1.5 5.29L2 22.5l5.48-1.62a9.9 9.9 0 0 0 4.56 1.12h.01c5.44 0 9.87-4.42 9.87-9.87S17.48 2 12.04 2Zm0 18.03h-.01a8.2 8.2 0 0 1-4.17-1.14l-.3-.18-3.1.92.94-3.02-.2-.31a8.15 8.15 0 0 1-1.25-4.36c0-4.52 3.68-8.2 8.21-8.2a8.2 8.2 0 0 1 8.19 8.21c0 4.53-3.68 8.08-8.31 8.08Zm4.5-6.06c-.25-.13-1.46-.72-1.68-.8-.23-.08-.39-.13-.56.12-.16.25-.64.8-.78.97-.15.16-.29.19-.53.06-.25-.12-1.04-.38-1.98-1.22-.73-.65-1.23-1.46-1.37-1.7-.14-.25-.02-.38.11-.5.11-.12.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.44-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.43h-.48c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.74 2.65 4.2 3.72.59.25 1.05.4 1.4.52.59.18 1.13.16 1.55.1.47-.07 1.46-.6 1.66-1.18.21-.58.21-1.07.15-1.18-.06-.1-.23-.16-.48-.29Z"/></svg>Contact me on WhatsApp</a>
+      <span class="wa-handle">@alexandre.cormeraie</span>
     </div>
   </div>
 </section>
@@ -926,8 +986,9 @@ npx annotate-kit upgrade
       <span>Two versions, one idea: <a href="https://github.com/Connected-Mate/annotate-kit-web">annotate-kit-web</a> for the web, <a href="https://github.com/Connected-Mate/annotate-kit-ios">annotate-kit-ios</a> for iOS, plus a <a href="https://github.com/Connected-Mate/annotate-kit-ios-demo">runnable iOS demo</a>.</span>
     </div>
     <div class="row">
-      <a href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Buy</a>
-      <a href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit%20%E2%80%94%20licence&body=Hello%2C%0A%0AWe%20would%20like%20a%20licence%20for%20Annotate%20Kit.%0A%0A-%20Company%3A%20%0A-%20Stack%20(framework%2C%20styling)%3A%20%0A-%20People%20who%20would%20use%20it%3A%20%0A-%20Use%20or%20Adapt%3A%20%0A%0AThank%20you.">Contact</a>
+      <a data-wa="licence" href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit">Buy</a>
+      <a data-wa="licence" href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit">Contact</a>
+      <a href="mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit">Email</a>
       <span>© 2026 Connected Mate</span>
     </div>
   </div>
@@ -1025,5 +1086,7 @@ npx annotate-kit upgrade
   run(Number(slider.value));
 </script>
 
+<script src="assets/qrcode.min.js"></script>
+<script src="assets/wa-qr.js"></script>
 </body>
 </html>

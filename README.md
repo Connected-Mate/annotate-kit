@@ -72,7 +72,14 @@ the same way.
 | **annotate-kit-ios** | PolyForm Noncommercial 1.0.0 — free for noncommercial use; a commercial licence is available. Versions up to v0.4.0 remain MIT. |
 | **This site** | Content and assets: all rights reserved. |
 
-**Buy a licence:** [alex.connectedmate@gmail.com](mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit%20—%20licence)
+**Buy a licence, or ask for one built around your company:** WhatsApp **@alexandre.cormeraie** — or [alex.connectedmate@gmail.com](mailto:alex.connectedmate@gmail.com?subject=Annotate%20Kit).
+
+## Want it built for you?
+
+Annotate Kit is one answer to one problem. If you have the same problem in a different
+shape — your design system, your review process, your agents — or a different project
+entirely, it can be built for you rather than adapted by you.
+[Say so from the site](https://connected-mate.github.io/annotate-kit/#custom) — or reach me on WhatsApp at **@alexandre.cormeraie**.
 
 ## About `annotate-kit.js` in this repo
 
