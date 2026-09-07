@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Annotate Kit — Chrome extension privacy policy</title>
+<link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<style>
+  :root { color-scheme: light dark; --ink: #111; --dim: #555; --line: rgba(0,0,0,.12); --bg: #fafaf9; --accent: #0a84ff; }
+  @media (prefers-color-scheme: dark) { :root { --ink: #f2f2f2; --dim: #b5b5b5; --line: rgba(255,255,255,.14); --bg: #131316; } }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+  main { max-width: 720px; margin: 0 auto; padding: 56px 24px 96px; }
+  h1 { font-size: 30px; line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 8px; }
+  .date { color: var(--dim); font-size: 14px; margin-bottom: 32px; }
+  .lead { font-size: 18px; padding: 16px 20px; border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 10px; margin: 0 0 32px; }
+  h2 { font-size: 18px; margin: 32px 0 8px; }
+  ul { padding-left: 22px; } li { margin: 6px 0; }
+  a { color: var(--accent); }
+  nav { margin-bottom: 24px; font-size: 14px; } nav a { color: var(--dim); text-decoration: none; } nav a:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <nav><a href="./">← Annotate Kit</a></nav>
+  <h1>Annotate Kit — Chrome extension privacy policy</h1>
+  <p class="date">Last updated: 7 September 2026</p>
+  <p class="lead"><strong>In one line:</strong> the extension keeps everything on your computer, and sends your feedback only where you tell it to.</p>
+
+  <h2>What the extension does</h2>
+  <p>Annotate Kit lets you point at elements of a web page, write what should change, try design tweaks, look at the page at phone and tablet sizes, and hand that brief to a coding agent.</p>
+
+  <h2>What it stores, and where</h2>
+  <ul>
+    <li><strong>Your notes and design tweaks</strong> are stored in your browser (the page's local storage), per page. They never leave your computer unless you press « Send » or « Copy ».</li>
+    <li><strong>Your settings</strong> (theme, accent colour, language, webhook address, the list of sites you switched the extension on for) are stored in Chrome's extension storage and synced with your Chrome profile by Chrome, if you have sync on.</li>
+  </ul>
+
+  <h2>What it sends</h2>
+  <ul>
+    <li><strong>Nothing, by default.</strong> With no webhook address set, « Send » copies the brief to your clipboard and that is all.</li>
+    <li><strong>If you set a webhook address</strong>, « Send » posts the brief (your notes, the elements they point at, the page URL and title, and the screenshots you chose to attach) to that address only. You choose the address; we never see it or the data.</li>
+  </ul>
+
+  <h2>What it does not do</h2>
+  <ul>
+    <li>No analytics, no tracking, no telemetry, no advertising.</li>
+    <li>No account, no server of ours. The extension has no backend.</li>
+    <li>It runs only on the sites you switch it on for, and asks Chrome for permission on each one, the moment you switch it on. Switching a site off removes that permission.</li>
+  </ul>
+
+  <h2>Permissions, explained</h2>
+  <ul>
+    <li><strong>storage</strong> — your settings and the list of sites you switched on.</li>
+    <li><strong>activeTab</strong> — to know which site the popup is about.</li>
+    <li><strong>scripting</strong> — to load the kit on the sites you switched on.</li>
+    <li><strong>clipboardWrite</strong> — « Copy » and « Send » without a webhook put the brief on your clipboard.</li>
+    <li><strong>Per-site access</strong> (asked when you switch a site on) — to show the toolbar and read the page you are annotating.</li>
+  </ul>
+
+  <h2>Contact</h2>
+  <p>Connected-Mate — <a href="https://github.com/Connected-Mate/annotate-kit/issues">github.com/Connected-Mate/annotate-kit/issues</a></p>
+</main>
+</body>
+</html>
