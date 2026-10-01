@@ -39,7 +39,8 @@
   var MESSAGES = {
     buy:     "Hello Alex, I'd like to buy Annotate Kit.",
     licence: "Hello Alex, I'd like a licence for Annotate Kit.",
-    custom:  "Hello Alex, I'd like something like Annotate Kit, but built for us."
+    custom:  "Hello Alex, I'd like something like Annotate Kit, but built for us.",
+    notify:  "Hello Alex, tell me when the Annotate Kit Chrome extension is out."
   };
 
   function link(key) {
