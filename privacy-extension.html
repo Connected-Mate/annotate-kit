@@ -34,51 +34,45 @@
 </head>
 <body>
 <main>
-  <nav><a href="./">← Annotate Kit</a></nav>
-  <h1>Annotate Kit — Chrome extension privacy policy</h1>
-  <p class="date">Last updated: 29 September 2026</p>
-  <p class="lead"><strong>In one line:</strong> the extension keeps everything on your computer, and sends your feedback only where you tell it to.</p>
-
-  <h2>What the extension does</h2>
-  <p>Annotate Kit lets you point at elements of a web page, write what should change, try design tweaks, look at the page at phone and tablet sizes, and hand that brief to a coding agent.</p>
-
-  <h2>What it stores, and where</h2>
-  <ul>
-    <li><strong>Your notes and design tweaks</strong> are stored in your browser (the page's local storage), per page.</li>
-    <li><strong>Your settings</strong> (theme, accent colour, language, agent server address, webhook address, the list of sites you switched the extension on for) are stored in Chrome's extension storage and synced with your Chrome profile by Chrome, if you have sync on.</li>
-    <li><strong>Screenshots, only if you turn on “Let my agent see screenshots”</strong> (Preferences). Each element screenshot you take is saved to your own Downloads folder, under <code>Annotate Kit/</code>, so your coding agent can open it from the brief. Without that option, a screenshot exists only in the page until you copy or download it. They stay on your computer and are deleted automatically after 7 days (at most 200 are kept). Turning the option off stops saving new ones and hands the permission back; screenshots already saved then stay in that folder until you delete them, or until you turn the option back on, when the 7-day clean-up resumes.</li>
-    <li><strong>Your licence key</strong>, if you buy Pro, with the date it was last confirmed and a random name for this browser (for example <code>Annotate Kit for Chrome · 3f9a1c20</code>). Stored in Chrome's extension storage on this computer only, not synced.</li>
-  </ul>
-
-  <h2>What it sends, and only when you ask</h2>
-  <ul>
-    <li><strong>Nothing, by default.</strong> « Copy » puts the brief on your clipboard, and that is all.</li>
-    <li><strong>To your coding agent, if you connect one.</strong> The agent server (<code>agentation-mcp</code>) runs on your own computer (by default <code>http://localhost:4747</code>). On local development sites, your notes (the text, the element they point at, the page address and title, the screenshots you chose to attach) are sent to that server as you write them. The popup also asks that address whether anything is running, to show “Connected”. Nothing goes over the internet.</li>
-    <li><strong>To a webhook, if you set one.</strong> « Send » posts the brief to that address only. You choose the address; we never see it or the data.</li>
-    <li><strong>To the licence provider, if you buy Pro</strong> (a single €15 purchase). When you enter a key, and about once a day after that, the extension sends the key and the random browser name to Lemon Squeezy (<code>api.lemonsqueezy.com</code>), which sells and checks the licences, and receives back whether the key is valid, with the name or e-mail on the order. No page content, notes or browsing data are ever sent. Lemon Squeezy's own privacy policy covers the purchase itself: <a href="https://www.lemonsqueezy.com/privacy">lemonsqueezy.com/privacy</a>.</li>
-  </ul>
-
-  <h2>What it does not do</h2>
-  <ul>
-    <li>No analytics, no tracking, no telemetry, no advertising.</li>
-    <li>No account and no server of ours. The extension has no backend.</li>
-    <li>It runs only on the sites you switch it on for, and asks Chrome for permission on each one, the moment you switch it on. Switching a site off removes that permission.</li>
-  </ul>
-
-  <h2>Permissions, explained</h2>
-  <ul>
-    <li><strong>storage</strong> — your settings, the list of sites you switched on, your licence key.</li>
-    <li><strong>activeTab</strong> — to know which site the popup is about when you click the icon.</li>
-    <li><strong>scripting</strong> — to load the toolbar on the sites you switched on.</li>
-    <li><strong>Per-site access (asked when you switch a site on)</strong> — to show the toolbar and read the page you are annotating.</li>
-    <li><strong>Downloads (optional, asked only when you tick “Let my agent see screenshots”)</strong> — to save your screenshots in Downloads › Annotate Kit and delete them after 7 days, without the download bubble popping up each time. Pages you annotate never learn where your home folder is: the path given to them starts with <code>~</code>.</li>
-  </ul>
-
-  <h2>Removing your data</h2>
-  <p>Remove the licence from the popup (Licence → Remove from this browser) to free its seat and delete the key. Uninstalling the extension deletes its settings and key; notes stay in each page's local storage until you clear them in the toolbar or clear the site's data.</p>
-
-  <h2>Contact</h2>
-  <p>Connected-Mate — <a href="https://github.com/Connected-Mate/annotate-kit/issues">github.com/Connected-Mate/annotate-kit/issues</a></p>
+<h1>Annotate Kit — Chrome extension privacy policy</h1>
+<p>Last updated: 29 September 2026</p>
+<p><strong>In one line: the extension keeps everything on your computer, and sends your feedback only where you tell it to.</strong></p>
+<h2>What the extension does</h2>
+<p>Annotate Kit lets you point at elements of a web page, write what should change, try design tweaks, look at the page at phone and tablet sizes, and hand that brief to a coding agent.</p>
+<h2>What it stores, and where</h2>
+<ul>
+<li><strong>Your notes and design tweaks</strong> are stored in your browser (the page&#x27;s local storage), per page.</li>
+<li><strong>Your settings</strong> (theme, accent colour, language, agent server address, webhook address, the list of sites you switched the extension on for) are stored in Chrome&#x27;s extension storage and synced with your Chrome profile by Chrome, if you have sync on.</li>
+<li><strong>Screenshots, only if you turn on &quot;Let my agent see screenshots&quot;</strong> (Preferences). Each element screenshot you take is saved to your own Downloads folder, under <code>Annotate Kit/</code>, so your coding agent can open it from the brief. Without that option, a screenshot exists only in the page until you copy or download it. They stay on your computer and are deleted automatically after 7 days (at most 200 are kept). Turning the option off stops saving new ones and hands the permission back; screenshots already saved then stay in that folder until you delete them, or until you turn the option back on, when the 7-day clean-up resumes.</li>
+<li><strong>Your licence key</strong>, if you buy Pro, with the date it was last confirmed and a random name for this browser (for example <code>Annotate Kit for Chrome · 3f9a1c20</code>). Stored in Chrome&#x27;s extension storage on this computer only, not synced.</li>
+</ul>
+<h2>What it sends, and only when you ask</h2>
+<ul>
+<li><strong>Nothing, by default.</strong> « Copy » puts the brief on your clipboard, and that is all.</li>
+<li><strong>To your coding agent, if you connect one.</strong> The agent server (<code>agentation-mcp</code>) runs on your own computer (by default <code>http://localhost:4747</code>). When connected, your notes (the text, the element they point at, the page address and title, the screenshots you chose to attach) are sent to that server as you write them. The popup also asks that address whether anything is running, to show &quot;Connected&quot;. With the default localhost address, traffic stays on your computer. If you configure a remote agent server, your feedback is sent to that server over the network.</li>
+<li><strong>To a webhook, if you set one.</strong> « Send » posts the brief to that address only. You choose the address; we never see it or the data.</li>
+<li><strong>To the licence provider, if you buy Pro</strong> (a single €15 purchase). When you enter a key, and about once a day after that, the extension sends the key and the random browser name to Lemon Squeezy (<code>api.lemonsqueezy.com</code>), which sells and checks the licences, and receives back whether the key is valid, with the name or e-mail on the order. No page content, notes or browsing data are ever sent. Lemon Squeezy&#x27;s own privacy policy covers the purchase itself: https://www.lemonsqueezy.com/privacy</li>
+</ul>
+<h2>What it does not do</h2>
+<ul>
+<li>No analytics, no tracking, no telemetry, no advertising.</li>
+<li>No account and no server of ours. The extension has no backend.</li>
+<li>It runs only on the sites you switch it on for, and asks Chrome for permission on each one, the moment you switch it on. Switching a site off removes that permission.</li>
+</ul>
+<h2>Permissions, explained</h2>
+<ul>
+<li><strong>storage</strong> — your settings, the list of sites you switched on, your licence key.</li>
+<li><strong>activeTab</strong> — to know which site the popup is about when you click the icon.</li>
+<li><strong>scripting</strong> — to load the toolbar on the sites you switched on.</li>
+<li><strong>Per-site access (asked when you switch a site on)</strong> — to show the toolbar and read the page you are annotating.</li>
+<li><strong>Downloads (optional, asked only when you tick &quot;Let my agent see screenshots&quot;)</strong> — to save your screenshots in Downloads › Annotate Kit and delete them after 7 days, without the download bubble popping up each time. Pages you annotate never learn where your home folder is: the path given to them starts with <code>~</code>.</li>
+</ul>
+<h2>Removing your data</h2>
+<p>Remove the licence from the popup (Licence → Remove from this browser) to free its seat and delete the key. Uninstalling the extension deletes its settings and key; notes stay in each page&#x27;s local storage until you clear them in the toolbar or clear the site&#x27;s data.</p>
+<h2>Limited Use</h2>
+<p>Annotate Kit’s use and transfer of information received from Google APIs adheres to the Chrome Web Store User Data Policy, including the Limited Use requirements.</p>
+<h2>Contact</h2>
+<p>Connected-Mate — https://connected-mate.github.io/annotate-kit/</p>
 </main>
 </body>
 </html>
