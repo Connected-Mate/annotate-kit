@@ -4,61 +4,75 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Annotate Kit — Chrome extension privacy policy</title>
+<meta name="description" content="What the Annotate Kit Chrome extension stores, what it sends and only when you ask, and every permission it uses, explained.">
+<meta name="color-scheme" content="light dark">
+<link rel="canonical" href="https://connected-mate.github.io/annotate-kit/privacy-extension.html">
 <link rel="icon" href="assets/mark.svg" type="image/svg+xml">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Annotate Kit — Chrome extension privacy policy">
+<meta property="og:description" content="The extension keeps everything on your computer, and sends your feedback only where you tell it to.">
+<meta property="og:url" content="https://connected-mate.github.io/annotate-kit/privacy-extension.html">
+<meta property="og:image" content="https://connected-mate.github.io/annotate-kit/assets/social-preview.png">
 <style>
-  :root { color-scheme: light dark; --ink: #111; --dim: #555; --line: rgba(0,0,0,.12); --bg: #fafaf9; --accent: #0a84ff; }
-  @media (prefers-color-scheme: dark) { :root { --ink: #f2f2f2; --dim: #b5b5b5; --line: rgba(255,255,255,.14); --bg: #131316; } }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
+  /* Kept in step with apps/extension/store/PRIVACY.md in annotate-kit-web:
+     the store listing links here, so the two must say the same thing. */
+  :root { color-scheme: light dark; --ink: #0B0B0C; --dim: #4A4D54; --line: #E7E7EC; --bg: #FBFAF9; --card: #FFFFFF; --accent: #0066DD; }
+  @media (prefers-color-scheme: dark) { :root { --ink: #F2F2F4; --dim: #B5B8BF; --line: #2A2C31; --bg: #101113; --card: #17181B; --accent: #4AA3FF; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.6 -apple-system, "SF Pro Text", system-ui, "Segoe UI", Roboto, sans-serif; -webkit-font-smoothing: antialiased; }
   main { max-width: 720px; margin: 0 auto; padding: 56px 24px 96px; }
-  h1 { font-size: 30px; line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 8px; }
-  .date { color: var(--dim); font-size: 14px; margin-bottom: 32px; }
-  .lead { font-size: 18px; padding: 16px 20px; border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: 10px; margin: 0 0 32px; }
-  h2 { font-size: 18px; margin: 32px 0 8px; }
-  ul { padding-left: 22px; } li { margin: 6px 0; }
+  h1 { font-size: clamp(26px, 5vw, 32px); line-height: 1.15; letter-spacing: -0.03em; margin: 0 0 8px; }
+  .date { color: var(--dim); font-size: 14px; margin: 0 0 32px; }
+  .lead { font-size: 18px; padding: 16px 20px; border: 1px solid var(--line); background: var(--card); border-radius: 14px; margin: 0 0 32px; }
+  h2 { font-size: 19px; letter-spacing: -0.02em; margin: 36px 0 8px; }
+  ul { padding-left: 22px; } li { margin: 8px 0; }
   a { color: var(--accent); }
-  nav { margin-bottom: 24px; font-size: 14px; } nav a { color: var(--dim); text-decoration: none; } nav a:hover { color: var(--accent); }
+  code { font: 0.9em ui-monospace, "SF Mono", Menlo, monospace; overflow-wrap: anywhere; }
+  nav { margin-bottom: 24px; font-size: 15px; } nav a { color: var(--dim); text-decoration: none; display: inline-block; padding: 6px 0; } nav a:hover { color: var(--accent); }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 </style>
 </head>
 <body>
 <main>
-  <nav><a href="./">← Annotate Kit</a></nav>
-  <h1>Annotate Kit — Chrome extension privacy policy</h1>
-  <p class="date">Last updated: 7 September 2026</p>
-  <p class="lead"><strong>In one line:</strong> the extension keeps everything on your computer, and sends your feedback only where you tell it to.</p>
-
-  <h2>What the extension does</h2>
-  <p>Annotate Kit lets you point at elements of a web page, write what should change, try design tweaks, look at the page at phone and tablet sizes, and hand that brief to a coding agent.</p>
-
-  <h2>What it stores, and where</h2>
-  <ul>
-    <li><strong>Your notes and design tweaks</strong> are stored in your browser (the page's local storage), per page. They never leave your computer unless you press « Send » or « Copy ».</li>
-    <li><strong>Your settings</strong> (theme, accent colour, language, webhook address, the list of sites you switched the extension on for) are stored in Chrome's extension storage and synced with your Chrome profile by Chrome, if you have sync on.</li>
-  </ul>
-
-  <h2>What it sends</h2>
-  <ul>
-    <li><strong>Nothing, by default.</strong> With no webhook address set, « Send » copies the brief to your clipboard and that is all.</li>
-    <li><strong>If you set a webhook address</strong>, « Send » posts the brief (your notes, the elements they point at, the page URL and title, and the screenshots you chose to attach) to that address only. You choose the address; we never see it or the data.</li>
-  </ul>
-
-  <h2>What it does not do</h2>
-  <ul>
-    <li>No analytics, no tracking, no telemetry, no advertising.</li>
-    <li>No account, no server of ours. The extension has no backend.</li>
-    <li>It runs only on the sites you switch it on for, and asks Chrome for permission on each one, the moment you switch it on. Switching a site off removes that permission.</li>
-  </ul>
-
-  <h2>Permissions, explained</h2>
-  <ul>
-    <li><strong>storage</strong> — your settings and the list of sites you switched on.</li>
-    <li><strong>activeTab</strong> — to know which site the popup is about.</li>
-    <li><strong>scripting</strong> — to load the kit on the sites you switched on.</li>
-    <li><strong>clipboardWrite</strong> — « Copy » and « Send » without a webhook put the brief on your clipboard.</li>
-    <li><strong>Per-site access</strong> (asked when you switch a site on) — to show the toolbar and read the page you are annotating.</li>
-  </ul>
-
-  <h2>Contact</h2>
-  <p>Connected-Mate — <a href="https://github.com/Connected-Mate/annotate-kit/issues">github.com/Connected-Mate/annotate-kit/issues</a></p>
+<h1>Annotate Kit — Chrome extension privacy policy</h1>
+<p>Last updated: 29 September 2026</p>
+<p><strong>In one line: the extension keeps everything on your computer, and sends your feedback only where you tell it to.</strong></p>
+<h2>What the extension does</h2>
+<p>Annotate Kit lets you point at elements of a web page, write what should change, try design tweaks, look at the page at phone and tablet sizes, and hand that brief to a coding agent.</p>
+<h2>What it stores, and where</h2>
+<ul>
+<li><strong>Your notes and design tweaks</strong> are stored in your browser (the page&#x27;s local storage), per page.</li>
+<li><strong>Your settings</strong> (theme, accent colour, language, agent server address, webhook address, the list of sites you switched the extension on for) are stored in Chrome&#x27;s extension storage and synced with your Chrome profile by Chrome, if you have sync on.</li>
+<li><strong>Screenshots, only if you turn on &quot;Let my agent see screenshots&quot;</strong> (Preferences). Each element screenshot you take is saved to your own Downloads folder, under <code>Annotate Kit/</code>, so your coding agent can open it from the brief. Without that option, a screenshot exists only in the page until you copy or download it. They stay on your computer and are deleted automatically after 7 days (at most 200 are kept). Turning the option off stops saving new ones and hands the permission back; screenshots already saved then stay in that folder until you delete them, or until you turn the option back on, when the 7-day clean-up resumes.</li>
+<li><strong>Your licence key</strong>, if you buy Pro, with the date it was last confirmed and a random name for this browser (for example <code>Annotate Kit for Chrome · 3f9a1c20</code>). Stored in Chrome&#x27;s extension storage on this computer only, not synced.</li>
+</ul>
+<h2>What it sends, and only when you ask</h2>
+<ul>
+<li><strong>Nothing, by default.</strong> « Copy » puts the brief on your clipboard, and that is all.</li>
+<li><strong>To your coding agent, if you connect one.</strong> The agent server (<code>agentation-mcp</code>) runs on your own computer (by default <code>http://localhost:4747</code>). When connected, your notes (the text, the element they point at, the page address and title, the screenshots you chose to attach) are sent to that server as you write them. The popup also asks that address whether anything is running, to show &quot;Connected&quot;. With the default localhost address, traffic stays on your computer. If you configure a remote agent server, your feedback is sent to that server over the network.</li>
+<li><strong>To a webhook, if you set one.</strong> « Send » posts the brief to that address only. You choose the address; we never see it or the data.</li>
+<li><strong>To the licence provider, if you buy Pro</strong> (a single €15 purchase). When you enter a key, and about once a day after that, the extension sends the key and the random browser name to Lemon Squeezy (<code>api.lemonsqueezy.com</code>), which sells and checks the licences, and receives back whether the key is valid, with the name or e-mail on the order. No page content, notes or browsing data are ever sent. Lemon Squeezy&#x27;s own privacy policy covers the purchase itself: https://www.lemonsqueezy.com/privacy</li>
+</ul>
+<h2>What it does not do</h2>
+<ul>
+<li>No analytics, no tracking, no telemetry, no advertising.</li>
+<li>No account and no server of ours. The extension has no backend.</li>
+<li>It runs only on the sites you switch it on for, and asks Chrome for permission on each one, the moment you switch it on. Switching a site off removes that permission.</li>
+</ul>
+<h2>Permissions, explained</h2>
+<ul>
+<li><strong>storage</strong> — your settings, the list of sites you switched on, your licence key.</li>
+<li><strong>activeTab</strong> — to know which site the popup is about when you click the icon.</li>
+<li><strong>scripting</strong> — to load the toolbar on the sites you switched on.</li>
+<li><strong>Per-site access (asked when you switch a site on)</strong> — to show the toolbar and read the page you are annotating.</li>
+<li><strong>Downloads (optional, asked only when you tick &quot;Let my agent see screenshots&quot;)</strong> — to save your screenshots in Downloads › Annotate Kit and delete them after 7 days, without the download bubble popping up each time. Pages you annotate never learn where your home folder is: the path given to them starts with <code>~</code>.</li>
+</ul>
+<h2>Removing your data</h2>
+<p>Remove the licence from the popup (Licence → Remove from this browser) to free its seat and delete the key. Uninstalling the extension deletes its settings and key; notes stay in each page&#x27;s local storage until you clear them in the toolbar or clear the site&#x27;s data.</p>
+<h2>Limited Use</h2>
+<p>Annotate Kit’s use and transfer of information received from Google APIs adheres to the Chrome Web Store User Data Policy, including the Limited Use requirements.</p>
+<h2>Contact</h2>
+<p>Connected-Mate — https://connected-mate.github.io/annotate-kit/</p>
 </main>
 </body>
 </html>
